@@ -22,7 +22,7 @@ public class ChatGUI extends JFrame {
         setLayout(new BorderLayout());
 
         //Top bar: channel name, shows in which channel you are
-        channelName = new JLabel("Chanel: ");
+        channelName = new JLabel("Chanel: main");
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(channelName, BorderLayout.WEST);
 
@@ -85,8 +85,8 @@ public class ChatGUI extends JFrame {
         add(rightPanel, BorderLayout.EAST);
 
         // Event handlers
-        sendButton.addActionListener((ActionEvent _) -> sendMessage());
-        switchChannelButton.addActionListener((ActionEvent _) -> switchChannel());
+        sendButton.addActionListener((ActionEvent ignore) -> sendMessage());
+        switchChannelButton.addActionListener((ActionEvent ignore) -> switchChannel());
 
         setVisible(true);
     }
