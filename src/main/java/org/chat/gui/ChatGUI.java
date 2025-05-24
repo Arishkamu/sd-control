@@ -1,12 +1,14 @@
 package org.chat.gui;
 
+import org.chat.messages.MessageHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 // Create the main chat class, inherit from the window
 public class ChatGUI extends JFrame {
-    private final MessageHandler client;
+    private MessageHandler client;
 
     private final JTextArea chatArea;
     private final JTextArea inputField;
@@ -111,6 +113,7 @@ public class ChatGUI extends JFrame {
                 chatArea.append("Changed channel to " + newChannel + "\n");
                 // clearing the field
                 channelChangeField.setText("");
+                chatArea.setText("");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Failed to change channel:" + e.getMessage());
             }
