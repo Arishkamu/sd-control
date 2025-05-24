@@ -46,5 +46,5 @@ tasks.register<JavaExec>("runCLI") {
         "-Djline.terminal=jline.UnixTerminal"
     )
 
-    // ./gradlew runCLI --args="main localhost"
+    // ./gradlew runCLI --args="localhost main"
 }
