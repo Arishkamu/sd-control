@@ -1,6 +1,6 @@
 package org.chat.cli;
 
-import org.chat.cli.messages.MessageHandler;
+import org.chat.messages.MessageHandler;
 
 import java.io.IOException;
 import java.util.Scanner;
