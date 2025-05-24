@@ -54,13 +54,8 @@ public class MessageHandler {
         channel.basicPublish(currentChannel, "", null, message.getBytes(StandardCharsets.UTF_8));
     }
 
-    public boolean close() {
-        try {
-            channel.close();
-            connection.close();
-        } catch (Exception ignored) {
-            return false;
-        }
-        return true;
+    public void close() throws IOException, TimeoutException {
+        channel.close();
+        connection.close();
     }
 }
