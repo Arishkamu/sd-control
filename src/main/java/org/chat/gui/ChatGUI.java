@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 
 // Create the main chat class, inherit from the window
 public class ChatGUI extends JFrame {
+    private final MessageHandler client;
+
     private final JTextArea chatArea;
     private final JTextArea inputField;
     private final JLabel channelName;
@@ -26,6 +28,17 @@ public class ChatGUI extends JFrame {
         chatArea = new JTextArea();
         chatArea.setEditable(false);
         JScrollPane chatScrollPane = new JScrollPane(chatArea);
+
+
+        try {
+            client = new MessageHandler("localhost", "main");
+            client.connect(message -> {
+                // display all messages from the channel
+                SwingUtilities.invokeLater(() -> chatArea.append(message + "\n"));
+            });
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error connecting to server:" + e.getMessage());
+        }
 
         // Message input right panel + "Send" button
         inputField = new JTextArea(2, 18);
@@ -79,21 +92,28 @@ public class ChatGUI extends JFrame {
     private void sendMessage() {
         String message = inputField.getText().trim();
         if (!message.isEmpty()) {
-            chatArea.append("You: " + message + "\n");
-            // clearing the field
-            inputField.setText("");
-            // send to RabbitMQ
+            try {
+                client.sendMessage(message);
+                // clearing the field
+                inputField.setText("");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Failed to send message: " + e.getMessage());
+            }
         }
     }
 
     private void switchChannel() {
         String newChannel = channelChangeField.getText().trim();
         if (!newChannel.isEmpty()) {
-            channelName.setText("Channel: " + newChannel);
-            chatArea.append("Changed channel to " + newChannel + "\n");
-            // clearing the field
-            channelChangeField.setText("");
-            // change channel to RabbitMQ
+            try {
+                client.switchChannel(newChannel);
+                channelName.setText("Channel: " + newChannel);
+                chatArea.append("Changed channel to " + newChannel + "\n");
+                // clearing the field
+                channelChangeField.setText("");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Failed to change channel:" + e.getMessage());
+            }
         }
     }
 
