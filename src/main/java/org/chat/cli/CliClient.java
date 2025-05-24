@@ -20,8 +20,8 @@ public class CliClient {
             System.exit(1);
         }
 
-        String channelName = args[0];
-        String host = args.length == 2 ? args[1] : DEFAULT_HOST;
+        String channelName = args.length == 2 ? args[1] : args[0];
+        String host = args.length == 2 ? args[0] : DEFAULT_HOST;
 
         CliClient cliClient = new CliClient(channelName, host);
 
@@ -33,9 +33,6 @@ public class CliClient {
     }
 
     private void start(String channelName) throws Exception {
-        System.out.println("Enter your username");
-
-        // Подключаемся к нужному каналу по имени
         messageHandler.connect(this::writeCli);
         System.out.println("Connected to channel: " + channelName);
         System.out.println("Type '!switch <channel>' to change channels");

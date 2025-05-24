@@ -5,7 +5,7 @@
 
 Simple Chat with cli and gui.
 
-Supported operations:
+***Supported operations:***
 
 1. [Message] - send message to current chanel
 2. !swith <channel name> - switch to channel with <channel name>
@@ -15,7 +15,7 @@ Supported operations:
 ### Prerequisites
 
 - Java Development Kit (JDK) 11 or higher installed
-- Gradle installed (or use Gradle Wrapper)
+- Gradle installed (8.10+)
 - **RabbitMQ server installed and running** (see below)
 
 ---
@@ -26,46 +26,41 @@ Before building or running the chat application, make sure the RabbitMQ server i
 
 On macOS (with Homebrew), run:
 
-```bash
+```
   rabbitmq-server
 ```
+---
 
-### 1. First Method
+### 1. Clone the repository:
 
-Clone the repository:
-
-```bash
+```
 git clone git@github.com:Arishkamu/sd-control.git
 cd sd-control
 ```
 
+---
+### Run CLI
 Run the project using Gradle only:
 
-```bash
-./gradlew runChat
+```
+./gradlew runCli --args="Host Channel"
+```
+Or
+```
+./gradlew run --args="cli Host Channel"
 ```
 
 ---
 
-### 1. Second Method
+### Run GUI
+Run the project using Gradle only:
 
-Clone the repository:
-
-```bash
-git clone git@github.com:Arishkamu/cli-arch.git
-cd cli-arch
 ```
-
-Build the project using Gradle:
-
-```bash
-./gradlew build
+./gradlew runGui --args="Host Channel"
 ```
-
-Run the project:
-
-```bash
-java -jar build/libs/chat.jar
+Or
+```
+./gradlew run --args="gui Host Channel"
 ```
 
 ---
@@ -74,7 +69,7 @@ java -jar build/libs/chat.jar
 
 To run the unit tests, use:
 
-```bash
+```
 ./gradlew test
 ```
 

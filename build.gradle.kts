@@ -18,8 +18,33 @@ dependencies {
 }
 
 application {
-    mainClass.set("org.chat.gui.ChatGUI")
+    mainClass.set("org.chat.Main")
 }
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.register<JavaExec>("runGUI") {
+    group = "Execution"
+    description = "Run the GUI application"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("org.chat.gui.ChatGUI")
+
+    // ./gradlew runGui --args="localhost main"
+}
+
+tasks.register<JavaExec>("runCLI") {
+    group = "Execution"
+    description = "Run the CLI in interactive mode"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("org.chat.cli.CliClient")
+
+    standardInput = System.`in`
+
+    jvmArgs = listOf(
+        "-Djava.awt.headless=true",
+        "-Djline.terminal=jline.UnixTerminal"
+    )
+
+    // ./gradlew runCLI --args="main localhost"
 }
