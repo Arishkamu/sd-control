@@ -63,8 +63,13 @@ public class MessageHandler {
     }
 
     // close channel and connection
-    public void close() throws IOException, TimeoutException {
-        channel.close();
-        connection.close();
+    public boolean close() {
+        try {
+            channel.close();
+            connection.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

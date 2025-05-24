@@ -60,7 +60,9 @@ public class CliClient {
                     System.err.println("Failed switched to channel: " + newChannelName);
                 }
             } else if (input.contains("!exit")) {
-                messageHandler.close();
+                if (!messageHandler.close()) {
+                    System.out.println("Closing connection throw exception");
+                }
                 return;
             } else {
                 messageHandler.sendMessage(input);
