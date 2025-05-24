@@ -1,5 +1,6 @@
 plugins {
     java
+    id("application")
 }
 
 group = "org.chat"
@@ -14,6 +15,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
+application {
+    mainClass.set("org.chat.gui.ChatGUI")
+}
 tasks.test {
     useJUnitPlatform()
 }
