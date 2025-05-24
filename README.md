@@ -1,6 +1,6 @@
 # sd-Chat
 
-![Build Status](https://github.com/Arishkamu/sd-control/actions/workflows/ci.yaml/badge.svg)
+![Build Status](https://github.com/Arishkamu/sd-control/actions/workflows/ci-chat.yaml/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 Simple Chat with cli and gui.
