@@ -15,14 +15,14 @@ public class ChatGUI extends JFrame {
     private final JLabel channelName;
     private final JTextArea channelChangeField;
 
-    public ChatGUI() {
+    public ChatGUI(String host, String channel) {
         setTitle("Chat");
         setSize(650, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         //Top bar: channel name, shows in which channel you are
-        channelName = new JLabel("Chanel: main");
+        channelName = new JLabel("Chanel: " + channel);
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(channelName, BorderLayout.WEST);
 
@@ -33,7 +33,7 @@ public class ChatGUI extends JFrame {
 
 
         try {
-            client = new MessageHandler("localhost", "main");
+            client = new MessageHandler(host, channel);
             client.connect(message -> {
                 // display all messages from the channel
                 SwingUtilities.invokeLater(() -> chatArea.append(message + "\n"));
@@ -85,8 +85,8 @@ public class ChatGUI extends JFrame {
         add(rightPanel, BorderLayout.EAST);
 
         // Event handlers
-        sendButton.addActionListener((ActionEvent ignore) -> sendMessage());
-        switchChannelButton.addActionListener((ActionEvent ignore) -> switchChannel());
+        sendButton.addActionListener((ActionEvent x) -> sendMessage());
+        switchChannelButton.addActionListener((ActionEvent x) -> switchChannel());
 
         setVisible(true);
     }
@@ -121,6 +121,8 @@ public class ChatGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ChatGUI::new);
+        String host = args.length > 0 ? args[0] : "localhost";
+        String channel = args.length > 1 ? args[1] : "main";
+        SwingUtilities.invokeLater(() -> new ChatGUI(host, channel));
     }
 }
