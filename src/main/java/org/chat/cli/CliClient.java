@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class CliClient {
     private static final String DEFAULT_HOST = "127.0.0.1";
-
-    private String username;
     private final MessageHandler messageHandler;
 
 
@@ -36,9 +34,6 @@ public class CliClient {
 
     private void start(String channelName) throws Exception {
         System.out.println("Enter your username");
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.nextLine();
-        this.username = username.trim();
 
         // Подключаемся к нужному каналу по имени
         messageHandler.connect(this::writeCli);
@@ -51,7 +46,10 @@ public class CliClient {
 
     private void readCli() throws Exception {
         Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
+        while (true) {
+            if (!scanner.hasNextLine()) {
+                continue;
+            }
             String input = scanner.nextLine();
             if (input.contains("!switch")) {
                 String newChannelName = input.substring(8);
@@ -68,6 +66,6 @@ public class CliClient {
     }
 
     private void writeCli(String message) {
-        System.out.println(this.username + message);
+        System.out.println(message);
     }
 }
